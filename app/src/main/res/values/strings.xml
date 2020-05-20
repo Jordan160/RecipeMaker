@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe Resevoir</string>
+    <string name="app_name">Recipe Maker</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>

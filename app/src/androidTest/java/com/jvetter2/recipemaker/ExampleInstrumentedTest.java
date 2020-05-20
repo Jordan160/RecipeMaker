@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.jvetter2.reciperesevoir", appContext.getPackageName());
+        assertEquals("com.jvetter2.recipemaker", appContext.getPackageName());
     }
 }

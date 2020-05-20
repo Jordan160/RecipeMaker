@@ -1,6 +1,5 @@
 package com.jvetter2.recipemaker.fragments;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -61,21 +60,12 @@ public class RecipeDetailFragment extends Fragment {
         args.putString("instructions" ,recipeInstructionsTV.getText().toString());
         addEditFragment.setArguments(args);
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-          FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-          FragmentTransaction ft2 = mFragmentManager.beginTransaction();
-          ft2.addToBackStack(AddEditFragment.TAG);
-          ft2.replace(R.id.flContainer2, addEditFragment, AddEditFragment.TAG);
-          ft2.commit();
-          return true;
-        } else {
-          FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-          FragmentTransaction ft2 = mFragmentManager.beginTransaction();
-          ft2.addToBackStack(AddEditFragment.TAG);
-          ft2.replace(((ViewGroup)(getView().getParent())).getId(), addEditFragment, AddEditFragment.TAG);
-          ft2.commit();
-          return true;
-        }
+        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft2 = mFragmentManager.beginTransaction();
+        ft2.addToBackStack(AddEditFragment.TAG);
+        ft2.replace(((ViewGroup)(getView().getParent())).getId(), addEditFragment, AddEditFragment.TAG);
+        ft2.commit();
+        return true;
       case R.id.action_delete:
         Bundle deleteArgs = new Bundle();
         deleteArgs.putString("name" ,recipeNameTV.getText().toString());

@@ -95,16 +95,6 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
             ft.add(R.id.flContainer, firstFragment, RecipeMenuFragment.TAG);
             ft.commit();
         }
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            RecipeDetailFragment secondFragment = new RecipeDetailFragment();
-            Bundle args = new Bundle();
-            args.putInt("position", 0);
-            secondFragment.setArguments(args);
-            FragmentTransaction ft2 = mFragmentManager.beginTransaction();
-            ft2.add(R.id.flContainer2, secondFragment, RecipeMenuFragment.TAG);
-            ft2.commit();
-        }
     }
 
 
@@ -116,20 +106,11 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
         args.putInt("position", position);
         secondFragment.setArguments(args);
 
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flContainer2, secondFragment, RecipeDetailFragment.TAG) // replace flContainer
-                    .addToBackStack(null)
-                    .commit();
-        } else {
-            getSupportFragmentManager()
+        getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.flContainer, secondFragment, RecipeDetailFragment.TAG) // replace flContainer
                     .addToBackStack(null)
                     .commit();
-        }
     }
 
     @Override
