@@ -3,7 +3,9 @@ package com.jvetter2.recipemaker.fragments;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,11 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jvetter2.recipemaker.MainActivity;
 import com.jvetter2.recipemaker.R;
+
+import java.util.Arrays;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -26,7 +33,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class AddEditFragment extends Fragment {
     public static final String TAG = "AddEditFragment";
     EditText recipeNameET;
-    EditText recipeCategoryET;
+    Spinner categorySpinner;
     EditText recipeIngredientsET;
     EditText recipeInstructionsET;
     FloatingActionButton save;
@@ -34,12 +41,11 @@ public class AddEditFragment extends Fragment {
     String category;
     String ingredients;
     String instructions;
-
+    String[] recipeCategories;
 
     public AddEditFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
@@ -49,9 +55,17 @@ public class AddEditFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        Resources res = getResources();
+        recipeCategories = res.getStringArray(R.array.category_items);
+        categorySpinner = view.findViewById(R.id.recipeCategorySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, recipeCategories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
+        categorySpinner.setAdapter(adapter);
+
         final SQLiteDatabase recipeDatabase = getActivity().openOrCreateDatabase("Recipes", MODE_PRIVATE, null);
         recipeNameET = view.findViewById(R.id.recipeNameET);
-        recipeCategoryET = view.findViewById(R.id.recipeCategoryET);
         recipeIngredientsET = view.findViewById(R.id.recipeIngredientsET);
         recipeInstructionsET = view.findViewById(R.id.recipeInstructionsET);
         save = view.findViewById(R.id.saveFloatingActionButton);
@@ -73,7 +87,7 @@ public class AddEditFragment extends Fragment {
 
     private void updateExistingRecipe(final SQLiteDatabase recipeDatabase) {
         recipeNameET.setText(name);
-        recipeCategoryET.setText(category);
+        categorySpinner.setSelection(Arrays.asList(recipeCategories).indexOf(category));
         recipeIngredientsET.setText(ingredients);
         recipeInstructionsET.setText(instructions);
 
@@ -82,12 +96,12 @@ public class AddEditFragment extends Fragment {
             public void onClick(View v) {
                 if (validateFields()) {
                     if (!recipeNameET.getText().toString().equalsIgnoreCase(name) ||
-                            !recipeCategoryET.getText().toString().equalsIgnoreCase(category) ||
+                            !category.equalsIgnoreCase(String.valueOf(categorySpinner.getId())) ||
                             !recipeIngredientsET.getText().toString().equalsIgnoreCase(ingredients) ||
                             !recipeInstructionsET.getText().toString().equalsIgnoreCase(instructions)) {
                         ContentValues cv = new ContentValues();
                         cv.put("name", recipeNameET.getText().toString());
-                        cv.put("category", recipeCategoryET.getText().toString());
+                        cv.put("category", categorySpinner.getSelectedItem().toString());
                         cv.put("ingredients", recipeIngredientsET.getText().toString());
                         cv.put("instructions", recipeInstructionsET.getText().toString());
 
@@ -122,7 +136,7 @@ public class AddEditFragment extends Fragment {
                 if (validateFields()) {
                     ContentValues cv = new ContentValues();
                     cv.put("name", recipeNameET.getText().toString());
-                    cv.put("category", recipeCategoryET.getText().toString());
+                    cv.put("category", categorySpinner.getSelectedItem().toString());
                     cv.put("ingredients", recipeIngredientsET.getText().toString());
                     cv.put("instructions", recipeInstructionsET.getText().toString());
 
@@ -148,8 +162,11 @@ public class AddEditFragment extends Fragment {
             return false;
         }
 
-        if(recipeCategoryET.getText().toString().isEmpty()) {
-            recipeCategoryET.setError("Please provide a recipe category");
+        if(categorySpinner.getSelectedItem().toString().equalsIgnoreCase(getString(R.string.recipe_category))) {
+            TextView errorText = (TextView)categorySpinner.getSelectedView();
+            errorText.setError("");
+            errorText.setTextColor(Color.RED);
+            errorText.setText("Please select a Recipe Category");
             return false;
         }
 

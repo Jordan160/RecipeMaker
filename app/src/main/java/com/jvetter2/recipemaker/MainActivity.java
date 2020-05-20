@@ -1,6 +1,5 @@
 package com.jvetter2.recipemaker;
 
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;

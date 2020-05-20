@@ -35,19 +35,16 @@ public class ConfirmationDialogFragment extends DialogFragment {
         }
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
-
                 builder.setTitle(R.string.confirm_title);
                 builder.setMessage(R.string.confirm_delete);
                 builder.setNegativeButton(R.string.confirm_cancel, null);
                 builder.setPositiveButton(android.R.string.yes,  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //RecipeDetailFragment.deleteRecipe();
                         SQLiteDatabase recipeDatabase = getActivity().openOrCreateDatabase("Recipes", MODE_PRIVATE, null);
                           try {
                             deleteRecipe(name, recipeDatabase);

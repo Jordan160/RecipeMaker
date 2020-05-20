@@ -13,59 +13,65 @@
          android:layout_height="wrap_content">
 
          <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameTextInputLayout">
+             android:id="@+id/nameTextInputLayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="5dp">
 
             <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/recipeNameET"
-               android:hint="@string/recipe_name"
-               android:imeOptions="actionNext"
-               android:inputType="textCapWords|textPersonName" />
+                android:id="@+id/recipeNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_name"
+                android:imeOptions="actionNext"
+                android:inputType="textCapWords|textPersonName"
+                android:padding="5dp" />
          </android.support.design.widget.TextInputLayout>
 
          <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recipeCategory">
-
-            <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/recipeCategoryET"
-               android:hint="@string/recipe_category"
-               android:imeOptions="actionNext"
-               android:inputType="textCapWords|textPersonName"/>
+             android:id="@+id/recipeCategory"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:padding="5dp">
+            <Spinner
+                android:id="@+id/recipeCategorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:padding="5dp"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
          </android.support.design.widget.TextInputLayout>
 
          <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/emailTextInputLayout">
+             android:id="@+id/emailTextInputLayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="5dp">
 
             <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/recipeIngredientsET"
-               android:hint="@string/recipe_ingredients"
-               android:imeOptions="actionNext"
-                android:inputType="textMultiLine"/>
+                android:id="@+id/recipeIngredientsET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_ingredients"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine"
+                android:padding="5dp" />
          </android.support.design.widget.TextInputLayout>
 
          <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recipeInstructionsLayout">
+             android:id="@+id/recipeInstructionsLayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="5dp">
 
             <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/recipeInstructionsET"
-               android:hint="@string/recipe_instructions"
-               android:imeOptions="actionNext"
-                android:inputType="textMultiLine" />
+                android:id="@+id/recipeInstructionsET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/recipe_instructions"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine"
+                android:padding="5dp" />
          </android.support.design.widget.TextInputLayout>
       </LinearLayout>
    </ScrollView>
