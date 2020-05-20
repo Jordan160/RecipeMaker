@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
 //            myDatabase.execSQL("INSERT INTO recipes (name, category, ingredients, instructions) " +
 //                    "VALUES ('Potroast', 'Baking', '1 pot, 1 roast', 'put the roast in the pot and cook')");
 
-            Cursor c = myDatabase.rawQuery("SELECT * FROM recipes", null);
+            Cursor c = myDatabase.rawQuery("SELECT * FROM recipes ORDER BY name COLLATE NOCASE ASC", null);
 
             int nameIndex = c.getColumnIndex("name");
             int categoryIndex = c.getColumnIndex("category");
