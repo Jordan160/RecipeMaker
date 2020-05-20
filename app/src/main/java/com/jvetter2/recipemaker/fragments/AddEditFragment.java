@@ -59,7 +59,7 @@ public class AddEditFragment extends Fragment {
         recipeCategories = res.getStringArray(R.array.category_items);
         categorySpinner = view.findViewById(R.id.recipeCategorySpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, recipeCategories);
+                R.layout.spinner_item, recipeCategories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setPadding(0, view.getPaddingTop(), view.getPaddingRight(), view.getPaddingBottom());
         categorySpinner.setAdapter(adapter);
@@ -96,7 +96,7 @@ public class AddEditFragment extends Fragment {
             public void onClick(View v) {
                 if (validateFields()) {
                     if (!recipeNameET.getText().toString().equalsIgnoreCase(name) ||
-                            !category.equalsIgnoreCase(String.valueOf(categorySpinner.getId())) ||
+                            !category.equalsIgnoreCase(categorySpinner.getSelectedItem().toString()) ||
                             !recipeIngredientsET.getText().toString().equalsIgnoreCase(ingredients) ||
                             !recipeInstructionsET.getText().toString().equalsIgnoreCase(instructions)) {
                         ContentValues cv = new ContentValues();
