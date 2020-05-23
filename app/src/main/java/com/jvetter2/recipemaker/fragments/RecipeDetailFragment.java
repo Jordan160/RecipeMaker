@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +45,7 @@ public class RecipeDetailFragment extends Fragment {
 
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    menu.clear();
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.fragment_menu, menu);
   }
@@ -72,6 +75,8 @@ public class RecipeDetailFragment extends Fragment {
         final ConfirmationDialogFragment confirmationFragment = new ConfirmationDialogFragment();
         confirmationFragment.setArguments(deleteArgs);
         confirmationFragment.show(getActivity().getSupportFragmentManager().beginTransaction(), "tag");
+        default:
+            getActivity().onBackPressed();
     }
 
     return super.onOptionsItemSelected(item);
@@ -88,5 +93,8 @@ public class RecipeDetailFragment extends Fragment {
     recipeCategoryTV.setText(MainActivity.recipeCategory.get(position).toString());
     recipeIngredientsTV.setText(MainActivity.recipeIngredients.get(position).toString());
     recipeInstructionsTV.setText(MainActivity.recipeInstructions.get(position).toString());
+
+    ((AppCompatActivity)getActivity()).getSupportActionBar();
+    ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
 }

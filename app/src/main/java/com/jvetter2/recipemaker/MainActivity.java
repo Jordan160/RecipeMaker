@@ -1,15 +1,20 @@
 package com.jvetter2.recipemaker;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.jvetter2.recipemaker.fragments.RecipeDetailFragment;
 import com.jvetter2.recipemaker.fragments.RecipeMenuFragment;
+import com.jvetter2.recipemaker.fragments.SearchFragment;
 
 import java.util.ArrayList;
 
@@ -20,28 +25,41 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
     public static ArrayList recipeIngredients = new ArrayList();
     public static ArrayList recipeInstructions = new ArrayList();
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-//                    return true;
-//                case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_dashboard);
-//                    return true;
-//            }
-//            return false;
-//        }
-//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFragmentManager = this.getSupportFragmentManager();
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        //if (mFragmentManager.getBackStackEntryCount() > 0) {
+
+//                            mFragmentManager.popBackStack(mFragmentManager.getBackStackEntryAt(0).getId(),
+//                                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //}
+                        return true;
+                    case R.id.search:
+                        SearchFragment searchFragment = new SearchFragment();
+                        FragmentTransaction ft = mFragmentManager.beginTransaction();
+                        ft.addToBackStack(SearchFragment.TAG);
+                        ft.replace(R.id.flContainer, searchFragment, SearchFragment.TAG);
+                        ft.commit();
+                        return true;
+                }
+                return false;
+            }
+        });
 
         recipeNames.clear();
         recipeCategory.clear();
@@ -56,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
 
 //            myDatabase.execSQL("INSERT INTO recipes (name, category, ingredients, instructions) " +
 //                    "VALUES ('Potroast', 'Baking', '1 pot, 1 roast', 'put the roast in the pot and cook')");
+            //myDatabase.execSQL("DELETE FROM recipes");
 
             Cursor c = myDatabase.rawQuery("SELECT * FROM recipes ORDER BY name COLLATE NOCASE ASC", null);
 
@@ -82,9 +101,6 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Log.d("DEBUG", getResources().getConfiguration().orientation + "");
 

@@ -1,11 +1,13 @@
 package com.jvetter2.recipemaker.fragments;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +45,8 @@ public class RecipeMenuFragment extends Fragment {
     ListView lvItems = (ListView) view.findViewById(R.id.lvItems);
     lvItems.setAdapter(itemsAdapter);
 
+    ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
     lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,6 +75,7 @@ public class RecipeMenuFragment extends Fragment {
 
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    menu.clear();
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.fragment_add_menu, menu);
   }

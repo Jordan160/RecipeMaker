@@ -13,6 +13,13 @@
     <string name="confirm_cancel">Cancel</string>
     <string name="confirm_delete">Are you sure you want to delete this recipe?</string>
     <string name="confirm_title">Delete Confirmation</string>
+    <string name="recipe_hint">Recipe Name</string>
+    <string name="recipe_search_hint">Search recipes by name</string>
+    <string name="recipe_save">Save</string>
+    <string name="recipe_search">Search</string>
+    <string name="recipe_error">Please enter a recipe name</string>
+    <string name="base_url">https://api.edamam.com/search?q=PLACEHOLDER&amp;from=0&amp;to=3&amp;ingr=5&amp;app_id=f96b970c&amp;app_key=33ad6c428a9e470e6bfdf8899432acf4&amp;from=0&amp;to=3&amp;calories=591-722&amp;health=alcohol-free</string>
+    &amp;from=1&amp;to=3&amp;ingr=5&amp;
 
     <string-array name="category_items">
         <item>Recipe Category</item>
@@ -23,4 +30,7 @@
         <item>Side Dish</item>
         <item>Other</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

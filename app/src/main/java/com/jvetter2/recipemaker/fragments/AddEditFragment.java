@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -83,6 +86,8 @@ public class AddEditFragment extends Fragment {
             saveNewRecipe(recipeDatabase);
         }
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void updateExistingRecipe(final SQLiteDatabase recipeDatabase) {
@@ -166,7 +171,7 @@ public class AddEditFragment extends Fragment {
             TextView errorText = (TextView)categorySpinner.getSelectedView();
             errorText.setError("");
             errorText.setTextColor(Color.RED);
-            errorText.setText("Please select a Recipe Category");
+            errorText.setText("Please select a RecipePreview Category");
             return false;
         }
 
@@ -179,6 +184,12 @@ public class AddEditFragment extends Fragment {
             recipeIngredientsET.setError("Please provide recipe ingredients");
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getActivity().onBackPressed();
         return true;
     }
 }
