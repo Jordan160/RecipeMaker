@@ -44,27 +44,4 @@ public class RecipeList extends AsyncTask<String, String, String> {
             return null;
         }
     }
-
-//    @Override
-//    protected void onPostExecute(String s) {
-//        super.onPostExecute(s);
-//
-//        try {
-//            JSONObject jsonObject = new JSONObject(s);
-////                String movieTitle = jsonObject.getString("title");
-////                Log.i("Movie Title", movieTitle);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        Log.i("JSON", s);
-//    }
-//    public String downloadContent(String url) {
-//        DownloadTask task = new DownloadTask();
-//        try {
-//            result = task.execute(url).get();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
 }

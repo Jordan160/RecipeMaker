@@ -9,29 +9,26 @@ public class RecipePreview {
     public String getName() {
         return recipeName;
     }
+    public String getRecipeCategory() {
+        return recipeCategory;
+    }
+    public String getRecipeIngredients() {
+        return recipeIngredients;
+    }
+    public String getRecipeInstructions() {
+        return recipeInstructions;
+    }
 
     public void setName(String recipeName) {
         this.recipeName = recipeName;
-    }
-
-    public String getRecipeCategory() {
-        return recipeCategory;
     }
 
     public void setRecipeCategory(String recipeCategory) {
         this.recipeCategory = recipeCategory;
     }
 
-    public String getRecipeIngredients() {
-        return recipeIngredients;
-    }
-
     public void setRecipeIngredients(String recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
-    }
-
-    public String getRecipeInstructions() {
-        return recipeInstructions;
     }
 
     public void setRecipeInstructions(String recipeInstructions) {
