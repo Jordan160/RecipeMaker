@@ -18,6 +18,7 @@
     <string name="recipe_save">Save</string>
     <string name="recipe_search">Search</string>
     <string name="recipe_error">Please enter a recipe name</string>
+    <string name="recipe_not_found">No recipes found, please try again</string>
     <string name="base_url">https://api.edamam.com/search?q=PLACEHOLDER&amp;from=0&amp;to=3&amp;ingr=5&amp;app_id=f96b970c&amp;app_key=33ad6c428a9e470e6bfdf8899432acf4&amp;from=0&amp;to=3&amp;calories=591-722&amp;health=alcohol-free</string>
     &amp;from=1&amp;to=3&amp;ingr=5&amp;
 

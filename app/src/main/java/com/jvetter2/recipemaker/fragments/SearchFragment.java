@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,9 +34,6 @@ public class SearchFragment extends Fragment {
     private RecipeArrayAdapter mAdapter;
     private List<RecipePreview> mList = new ArrayList<>();
     private RecyclerView recyclerView;
-    public ArrayList<String> recipeNameArray = new ArrayList<>();
-    public ArrayList<String> recipeIngredientsArray = new ArrayList<>();
-    public ArrayList<String> recipeInstructionsArray = new ArrayList<>();
     Button recipeSearchButton;
     EditText recipeSearchET;
     public SearchFragment() {
@@ -97,9 +95,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void getRecipe() {
-        recipeNameArray.clear();
-        recipeIngredientsArray.clear();
-        recipeInstructionsArray.clear();
         mList.clear();
 
         hideKeyboard(getActivity());
@@ -108,43 +103,47 @@ public class SearchFragment extends Fragment {
         String url = baseUrl.replace("PLACEHOLDER", recipeSearchET.getText());
         String recipe = null;
         JSONObject jsonObject = null;
+        int resultsFound = 0;
 
         try {
             recipe = recipeList.execute(url).get();
             jsonObject = new JSONObject(recipe);
+            resultsFound = jsonObject.getInt("count");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray("hits");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject c = jsonArray.getJSONObject(i).getJSONObject("recipe");
-                //String ingredients = c.getString("ingredientLines").replace("[", "").replace("]", "").replace(",", "\n");
-                JSONArray ingredients = c.getJSONArray("ingredients");
-                String ingredientsFinal = "";
-                for (int it = 0; it < ingredients.length(); it++) {
-                    ingredientsFinal += "(" + (it + 1) + ") " + ingredients.getJSONObject(it).getString("text") + "\n";
+        if (resultsFound > 0) {
+            try {
+                JSONArray jsonArray = jsonObject.getJSONArray("hits");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject c = jsonArray.getJSONObject(i).getJSONObject("recipe");
+                    //String ingredients = c.getString("ingredientLines").replace("[", "").replace("]", "").replace(",", "\n");
+                    JSONArray ingredients = c.getJSONArray("ingredients");
+                    String ingredientsFinal = "";
+                    for (int it = 0; it < ingredients.length(); it++) {
+                        ingredientsFinal += "(" + (it + 1) + ") " + ingredients.getJSONObject(it).getString("text") + "\n";
+                    }
+
+                    RecipePreview recipePreview = new RecipePreview();
+                    recipePreview.setName(c.getString("label"));
+                    recipePreview.setRecipeIngredients(ingredientsFinal);
+                    recipePreview.setRecipeInstructions(c.getString("shareAs"));
+                    mList.add(recipePreview);
                 }
-
-                recipeNameArray.add(c.getString("label"));
-                recipeIngredientsArray.add(ingredientsFinal);
-                recipeInstructionsArray.add(c.getString("shareAs"));
-
-                RecipePreview recipePreview = new RecipePreview();
-                recipePreview.setName(c.getString("label"));
-                recipePreview.setRecipeIngredients(ingredientsFinal);
-                recipePreview.setRecipeInstructions(c.getString("shareAs"));
-                mList.add(recipePreview);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        mAdapter = new RecipeArrayAdapter(mList, getActivity().getApplicationContext());
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-        recyclerView.setVisibility(View.VISIBLE);
+            mAdapter = new RecipeArrayAdapter(mList, getActivity().getApplicationContext());
+            recyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            Snackbar snackbar = Snackbar
+                    .make(getView(), getString(R.string.recipe_not_found), Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
     }
 
     public static void hideKeyboard(Activity activity) {
