@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
 
             c.moveToFirst();
 
-            while (c != null) {
+            while (!c.isAfterLast()) {
                 Log.i("name: ", c.getString(nameIndex));
                 Log.i("category: ", c.getString(categoryIndex));
                 Log.i("ingredients: ", c.getString(ingredientsIndex));
