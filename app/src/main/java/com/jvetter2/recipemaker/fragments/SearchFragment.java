@@ -40,8 +40,6 @@ public class SearchFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +116,6 @@ public class SearchFragment extends Fragment {
                 JSONArray jsonArray = jsonObject.getJSONArray("hits");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject c = jsonArray.getJSONObject(i).getJSONObject("recipe");
-                    //String ingredients = c.getString("ingredientLines").replace("[", "").replace("]", "").replace(",", "\n");
                     JSONArray ingredients = c.getJSONArray("ingredients");
                     String ingredientsFinal = "";
                     for (int it = 0; it < ingredients.length(); it++) {

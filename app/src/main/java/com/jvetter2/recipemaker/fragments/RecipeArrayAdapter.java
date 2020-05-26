@@ -77,9 +77,6 @@ public class RecipeArrayAdapter extends RecyclerView.Adapter<RecipeArrayAdapter.
                             "recipes",
                             null,
                             cv);
-//                    Log.i("Count: ", String.valueOf(count));
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

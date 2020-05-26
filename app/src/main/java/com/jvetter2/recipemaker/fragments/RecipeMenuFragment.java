@@ -25,7 +25,6 @@ public class RecipeMenuFragment extends Fragment {
 
   public static final String TAG = "RecipeMenuFragment";
   ArrayAdapter<String> itemsAdapter;
-  FragmentManager mFragmentManager;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

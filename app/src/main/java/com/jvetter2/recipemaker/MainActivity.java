@@ -28,11 +28,9 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //getSupportActionBar();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFragmentManager = this.getSupportFragmentManager();
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,11 +41,6 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
                     case R.id.home:
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        //if (mFragmentManager.getBackStackEntryCount() > 0) {
-
-//                            mFragmentManager.popBackStack(mFragmentManager.getBackStackEntryAt(0).getId(),
-//                                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        //}
                         return true;
                     case R.id.search:
                         SearchFragment searchFragment = new SearchFragment();
@@ -71,10 +64,6 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
         try {
             myDatabase.execSQL("CREATE TABLE IF NOT EXISTS recipes (name VARCHAR, category VARCHAR, " +
                     "ingredients VARCHAR, instructions VARCHAR)");
-
-//            myDatabase.execSQL("INSERT INTO recipes (name, category, ingredients, instructions) " +
-//                    "VALUES ('Potroast', 'Baking', '1 pot, 1 roast', 'put the roast in the pot and cook')");
-            //myDatabase.execSQL("DELETE FROM recipes");
 
             Cursor c = myDatabase.rawQuery("SELECT * FROM recipes ORDER BY name COLLATE NOCASE ASC", null);
 
@@ -111,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements RecipeMenuFragmen
             ft.commit();
         }
     }
-
 
     @Override
     public void onMenuItemSelected(int position) {
